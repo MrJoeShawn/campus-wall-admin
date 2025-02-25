@@ -1,11 +1,8 @@
 <template>
-  <div class="g-sidenav-show bg-gray-100">
+  <div class="g-sidenav-show">
     <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg">
       <!-- Navbar -->
-      <nav
-        class="navbar navbar-main navbar-expand-lg mx-5 px-0 shadow-none rounded"
-        id="navbarBlur"
-      >
+      <nav class="navbar navbar-main navbar-expand-lg px-0 shadow-none rounded" id="navbarBlur">
         <div class="container-fluid py-1 px-2">
           <nav aria-label="breadcrumb">
             <ol class="breadcrumb bg-transparent mb-1 pb-0 pt-1 px-0 me-sm-6 me-5">
@@ -19,10 +16,31 @@
             <h6 class="font-weight-bold mb-0">Dashboard</h6>
           </nav>
           <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
-            <div class="ms-md-auto pe-md-3 d-flex align-items-center">
-              <div class="input-group">
-                <span class="input-group-text text-body bg-white border-end-0"> </span>
-                <input type="text" class="form-control ps-0" placeholder="Search" />
+            <div class="ms-auto d-flex">
+              <div class="input-group input-group-sm ms-auto me-2">
+                <span class="input-group-text text-body">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16px"
+                    height="16px"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
+                    ></path>
+                  </svg>
+                </span>
+                <input
+                  type="text"
+                  class="form-control form-control-sm"
+                  placeholder="搜索"
+                  v-model="searchQuery"
+                />
               </div>
             </div>
             <ul class="navbar-nav justify-content-end">
@@ -33,13 +51,6 @@
                   <li v-for="(notification, index) in notifications" :key="index" class="mb-2">
                     <a class="dropdown-item border-radius-md" href="#">
                       <div class="d-flex py-1">
-                        <div class="my-auto">
-                          <img
-                            :src="notification.img"
-                            class="avatar avatar-sm border-radius-sm me-3"
-                          />
-                          11
-                        </div>
                         <div class="d-flex flex-column justify-content-center">
                           <h6 class="text-sm font-weight-normal mb-1">
                             <span class="font-weight-bold">{{ notification.title }}</span>
@@ -55,6 +66,13 @@
                   </li>
                 </ul>
               </li>
+
+              <li class="nav-item px-3 d-flex align-items-center">
+                <a href="javascript:;" class="nav-link text-body p-0">
+                  <i class="bi bi-bell-fill"></i>
+                </a>
+              </li>
+
               <li class="nav-item ps-2 d-flex align-items-center">
                 <a href="#" class="nav-link text-body p-0">
                   <img src="@/assets/img/team-2.jpg" class="avatar avatar-sm" alt="avatar" />
@@ -65,13 +83,13 @@
         </div>
       </nav>
       <!-- End Navbar -->
-      <div class="container-fluid py-4 px-5">
+      <div class="container-fluid">
         <div class="row">
           <div class="col-md-12">
             <div class="d-md-flex align-items-center mb-3 mx-2">
               <div class="mb-md-0 mb-3">
-                <h3 class="font-weight-bold mb-0">Hello, Noah</h3>
-                <p class="mb-0">Apps you might like!</p>
+                <h3 class="font-weight-bold mb-0">你好, 管理员MrJoe</h3>
+                <p class="mb-0">欢迎使用CampusWall!</p>
               </div>
               <button
                 class="btn btn-sm btn-white btn-icon d-flex align-items-center mb-0 ms-md-auto me-2"

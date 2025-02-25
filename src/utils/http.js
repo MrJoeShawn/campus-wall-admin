@@ -9,7 +9,7 @@ axios.defaults.headers['Content-Type'] = 'application/json;charset=utf-8';
 
 // 创建 axios 实例
 const httpInstance = axios.create({
-  baseURL: 'http://localhost:8081', // 设置请求的基础 URL
+  baseURL: 'http://localhost:8082', // 设置请求的基础 URL
   timeout: 5000, // 设置请求超时
 });
 

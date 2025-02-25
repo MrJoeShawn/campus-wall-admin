@@ -2,7 +2,9 @@
 import Sidenav from "@/components/layouts/Sidenav.vue";
 import Navbar from "@/components/layouts/Navbar.vue";
 import { ref } from "vue";
-
+import Carousel from "@/components/Announcements/Carousel.vue";
+import AnnouncementsTable from "@/components/Announcements/AnnouncementsTable.vue";
+import CreateAnnouncements from "@/views/Announcements/CreateAnnouncements.vue";
 const isCollapsed = ref(false);
 
 const toggleSidenav = () => {
@@ -11,12 +13,18 @@ const toggleSidenav = () => {
 </script>
 
 <template>
-  <div class="layout-container">
+  <div class="layout-container bg-gray-100">
     <Sidenav :isCollapsed="isCollapsed" @toggle="toggleSidenav" />
-    <div :class="['main-content', { collapsed: isCollapsed }]">
+    <div class="container-fluid py-4 px-5" :class="['main-content', { collapsed: isCollapsed }]">
       <Navbar />
-      <div class="page-content">
-        <slot />
+      <hr class="my-0" />
+      <div class="d-flex align-items-center Announcement-title">
+        <h3 class="mb-1 mx-2 font-weight-bold">校园公告管理</h3>
+      </div>
+      <Carousel></Carousel>
+
+      <div class="Announcement-Table">
+        <AnnouncementsTable></AnnouncementsTable>
       </div>
     </div>
   </div>
@@ -50,5 +58,13 @@ const toggleSidenav = () => {
   .main-content {
     margin-left: 0; /* 小屏幕时，不预留侧边栏空间 */
   }
+}
+
+.Announcement-title {
+  margin-top: 20px;
+}
+
+.Announcement-Table {
+  margin: 30px 0;
 }
 </style>

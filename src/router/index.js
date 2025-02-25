@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '@/views/HomeView.vue'
 import Signin from '@/views/Signin.vue'
 import Signup from '@/views/Signup.vue'
+import CreateAnnouncements from '@/views/Announcements/CreateAnnouncements.vue'
 
 
 const router = createRouter({
@@ -21,6 +22,11 @@ const router = createRouter({
       path: '/signup',
       name: 'signup',
       component: Signup,
+    },
+    {
+      path: '/createAnnouncements/:dynamicId?',
+      name: 'createAnnouncements',
+      component: CreateAnnouncements,
     },
   ],
 })

@@ -1,10 +1,9 @@
 <script setup>
-import Sidenav from "@/components/layouts/Sidenav.vue";
+import Sidenav from "@/components/layouts/Sidenar.vue";
 import Navbar from "@/components/layouts/Navbar.vue";
 import { ref } from "vue";
 import Carousel from "@/components/Announcements/Carousel.vue";
 import AnnouncementsTable from "@/components/Announcements/AnnouncementsTable.vue";
-import CreateAnnouncements from "@/views/Announcements/CreateAnnouncements.vue";
 const isCollapsed = ref(false);
 
 const toggleSidenav = () => {
@@ -15,7 +14,7 @@ const toggleSidenav = () => {
 <template>
   <div class="layout-container bg-gray-100">
     <Sidenav :isCollapsed="isCollapsed" @toggle="toggleSidenav" />
-    <div class="container-fluid py-4 px-5" :class="['main-content', { collapsed: isCollapsed }]">
+    <div class="container-fluid py-4 px-5">
       <Navbar />
       <hr class="my-0" />
       <div class="d-flex align-items-center Announcement-title">

@@ -1,8 +1,10 @@
 <template>
   <!-- 动态发布或编辑的主要内容 -->
-  <section class="single-block-wrapper section-padding section-padding-top">
+  <section
+    class="container-fluid py-4 px-5 single-block-wrapper section-padding section-padding-top"
+  >
     <div class="container">
-      <div class="row justify-content-center">
+      <div class="justify-content-center">
         <!-- 富文本编辑器 -->
         <div class="tinymce-box">
           <div class="container">
@@ -394,7 +396,7 @@ async function handleMediaUpload(editor) {
         TinyMCEuploading.value = false; // 上传完成时隐藏进度条
         if (xhr.status === 200) {
           const uploadResult = JSON.parse(xhr.responseText);
-          const fileUrl = `http://smq8ff2j3.hn-bkt.clouddn.com/${uploadResult.key}`; // 替换为你的七牛云域名
+          const fileUrl = `http://st80y4q35.hn-bkt.clouddn.com/${uploadResult.key}`; // 替换为你的七牛云域名
 
           // 根据文件类型插入不同内容
           if (fileType === "image") {
@@ -550,7 +552,7 @@ const uploadCoverImage = async (file) => {
   xhr.onload = () => {
     uploading.value = false;
     if (xhr.status === 200) {
-      const fileUrl = `http://smq8ff2j3.hn-bkt.clouddn.com/${JSON.parse(xhr.responseText).key}`;
+      const fileUrl = `http://st80y4q35.hn-bkt.clouddn.com/${JSON.parse(xhr.responseText).key}`;
       fileList.value[0] = { url: fileUrl };
       uploadedFilePath.value = fileUrl;
       ruleForm.dynamicCover = fileUrl;
@@ -694,6 +696,10 @@ const resetForm = () => {
 
 .container {
   position: relative;
+}
+
+.justify-content-center {
+  padding: 0 30px;
 }
 
 .editor-container {

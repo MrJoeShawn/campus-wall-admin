@@ -8,9 +8,7 @@
             class="navbar navbar-expand-lg blur border-radius-sm top-0 z-index-3 shadow position-absolute my-3 py-2 start-0 end-0 mx-4"
           >
             <div class="container-fluid px-1">
-              <a class="navbar-brand font-weight-bolder ms-lg-0" href="./index.html">
-                CampusWall
-              </a>
+              <a class="navbar-brand font-weight-bolder ms-lg-0" href="./index.html">CampusWall</a>
               <button
                 class="navbar-toggler shadow-none ms-2"
                 type="button"
@@ -95,6 +93,7 @@
                       <div class="mb-3">
                         <input
                           type="text"
+                          v-model="username"
                           class="form-control"
                           placeholder="请输入您的账号"
                           aria-label="Name"
@@ -105,47 +104,32 @@
                       <div class="mb-3">
                         <input
                           type="password"
+                          v-model="password"
                           class="form-control"
                           placeholder="请输入密码"
                           aria-label="Password"
                           aria-describedby="password-addon"
                         />
                       </div>
-                      <div class="d-flex align-items-center">
-                        <div class="form-check form-check-info text-left mb-0">
-                          <input
-                            class="form-check-input"
-                            type="checkbox"
-                            value=""
-                            id="flexCheckDefault"
-                          />
-                          <label class="font-weight-normal text-dark mb-0" for="flexCheckDefault">
-                            记住我14天
-                          </label>
-                        </div>
-                        <a href="javascript:;" class="text-xs font-weight-bold ms-auto"
-                          >忘记密码？</a
-                        >
-                      </div>
+                      <div class="d-flex align-items-center"></div>
                       <div class="text-center">
-                        <button type="button" class="btn btn-dark w-100 mt-4 mb-3">登录</button>
-                        <button type="button" class="btn btn-white btn-icon w-100 mb-3">
-                          <span class="btn-inner--icon me-1">
-                            <img
-                              class="w-5"
-                              src="@/assets/img/logos/google-logo.svg"
-                              alt="google-logo"
-                            />
-                          </span>
-                          <span class="btn-inner--text">使用Google登录</span>
+                        <button
+                          type="button"
+                          class="btn btn-dark w-100 mt-4 mb-3"
+                          @click="handleLogin"
+                          :disabled="isLoading"
+                        >
+                          <span v-if="isLoading">登录中...</span>
+                          <span v-else>登录</span>
                         </button>
                       </div>
+                      <p v-if="errorMessage" class="text-danger text-center">{{ errorMessage }}</p>
                     </form>
                   </div>
                   <div class="card-footer text-center pt-0 px-lg-2 px-1">
                     <p class="mb-4 text-xs mx-auto">
                       没有账号？
-                      <a href="javascript:;" class="text-dark font-weight-bold">注册</a>
+                      <a href="sign-up.html" class="text-dark font-weight-bold">注册</a>
                     </p>
                   </div>
                 </div>
@@ -161,7 +145,6 @@
                       class="blur mt-12 p-4 text-center border border-white border-radius-md position-absolute fixed-bottom m-4"
                     >
                       <h2 class="mt-3 text-dark font-weight-bold">加入我们的CampusWall社区。</h2>
-                      <h6 class="text-dark text-sm mt-5">版权所有 © 2022 CampusWall管理系统。</h6>
                     </div>
                   </div>
                 </div>
@@ -175,11 +158,42 @@
 </template>
 
 <script setup>
-// 引入必要的组件或资源
-
+import { ref } from "vue";
+import { useRouter } from "vue-router";
 import imageSrc from "@/assets/img/image-sign-in.jpg";
+import { useUserStore } from "@/stores/userStore";
+import { ElMessage } from "element-plus";
+
+const userStore = useUserStore();
+const username = ref("");
+const password = ref("");
+const router = useRouter();
+
+// 登录处理函数
+const handleLogin = async () => {
+  try {
+    await userStore.setUserInfo({
+      username: username.value,
+      password: password.value,
+    });
+    ElMessage.success("欢迎回来 " + (userStore.userInfo?.fullName || "用户"));
+    router.push("/"); // 登录成功后跳转到首页
+  } catch (error) {
+    // 尝试从错误对象中提取后端返回的错误信息
+    let errorMessage = "登录出错，请稍后重试";
+    if (error.response) {
+      // 如果有响应数据，则尝试获取其中的错误消息
+      if (error.response.data && error.response.data.message) {
+        errorMessage = error.response.data.message; // 假设后端在message字段中返回了错误信息
+      } else if (error.response.statusText) {
+        errorMessage = error.response.statusText; // 或者使用HTTP响应的状态文本作为错误信息
+      }
+    }
+    ElMessage.error(errorMessage);
+  }
+};
 </script>
 
 <style scoped>
-/* 如果需要特定样式的话可以在这里写 */
+/* 自定义样式 */
 </style>
